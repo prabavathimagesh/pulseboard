@@ -18,8 +18,7 @@ export default function Login() {
     e?.preventDefault?.();
     if (!email.trim()) return;
     setSubmitting(true);
-    const redirectBase =
-      import.meta.env.VITE_AUTH_REDIRECT_URL || window.location.origin;
+    const redirectBase = "https://pulseboard-gamma.vercel.app";
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: { emailRedirectTo: `${redirectBase}/tickets` },
