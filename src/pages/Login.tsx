@@ -18,7 +18,12 @@ export default function Login() {
     e?.preventDefault?.();
     if (!email.trim()) return;
     setSubmitting(true);
-    const { error } = await supabase.auth.signInWithOtp({ email });
+    const redirectBase =
+      import.meta.env.VITE_AUTH_REDIRECT_URL || window.location.origin;
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: `${redirectBase}/tickets` },
+    });
     if (error) setMessage(error.message);
     else setMessage("Check your email for the magic link to sign in.");
     setSubmitting(false);
